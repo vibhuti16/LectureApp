@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lecturer.ui.MainActivity">
+    <android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/cv_add_student"
+
+        android:layout_margin="@dimen/fab_margin"
+        android:background="@android:color/darker_gray">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_student"
+        android:textColor="@android:color/black"
+        android:padding="@dimen/fab_margin"/>
+</android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cv_take_attendance"
+        app:layout_constraintTop_toBottomOf="@id/cv_add_student"
+
+        android:layout_margin="@dimen/fab_margin"
+        android:background="@android:color/darker_gray">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/take_attendance"
+            android:textColor="@android:color/black"
+            android:padding="@dimen/fab_margin"/>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cv_view_attendance"
+        app:layout_constraintTop_toBottomOf="@id/cv_take_attendance"
+
+        android:layout_margin="@dimen/fab_margin"
+        android:background="@android:color/darker_gray">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/view_attendance"
+            android:textColor="@android:color/black"
+            android:padding="@dimen/fab_margin"/>
+    </android.support.v7.widget.CardView>
+</android.support.constraint.ConstraintLayout>
