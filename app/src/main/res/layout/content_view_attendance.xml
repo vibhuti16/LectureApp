@@ -6,9 +6,55 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.lecturer.ui.ViewAttendanceActivity"
-    tools:showIn="@layout/activity_view_attendance">
+    tools:showIn="@layout/activity_view_attendance"
+    android:layout_gravity="center_horizontal"
+    android:padding="@dimen/fab_margin">
+    <LinearLayout
+       android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linlay_title"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/txt_student_name"
+            android:padding="@dimen/fab_margin"
+            android:text="Name"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/txt_present"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/fab_margin"
+            android:text="Present"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/txt_absent"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/fab_margin"
+            android:text="Absent"/>
+    </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rv_view_attendance"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/rv_view_attendance"
+        android:foregroundGravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/linlay_title"/>
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:foregroundGravity="center"
+        android:visibility="gone"/>
 </android.support.constraint.ConstraintLayout>

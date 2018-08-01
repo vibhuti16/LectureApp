@@ -3,8 +3,10 @@ package com.lecturer.ui;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.lecturer.R;
@@ -18,6 +20,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
     private EditText edtUsername,edtPassword;
     private LectureAppContract.Presenter presenter;
+    private ProgressBar pgProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
         presenter = new LectureAppPresenter(ForgotPasswordActivity.this);
 
         findViewById(R.id.btn_forgot_password).setOnClickListener(this);
-
+        pgProgress = findViewById(R.id.progress);
     }
 
     @Override
@@ -44,11 +47,16 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                 LoginRequest loginRequest = new LoginRequest();
                 loginRequest.setUserName(edtUsername.getText().toString());
                 loginRequest.setPassword(edtPassword.getText().toString());
-                if(Utils.isNetworkConnected(ForgotPasswordActivity.this)) {
-                    presenter.forgotPassword(ForgotPasswordActivity.this, loginRequest);
-                }else
-                {
-                    Toast.makeText(ForgotPasswordActivity.this,getResources().getString(R.string.network_connection_issue),Toast.LENGTH_LONG).show();
+
+                if(validateDetails()){
+                    if(Utils.isNetworkConnected(ForgotPasswordActivity.this)) {
+                        pgProgress.setVisibility(View.VISIBLE);
+                        presenter.forgotPassword(ForgotPasswordActivity.this, loginRequest);
+                    }else
+                    {
+                        Toast.makeText(ForgotPasswordActivity.this,getResources().getString(R.string.network_connection_issue),Toast.LENGTH_LONG).show();
+                    }
+
                 }
 
                 break;
@@ -84,12 +92,14 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
     @Override
     public void onForgotPasswordSuccess(String message) {
 
+        pgProgress.setVisibility(View.GONE);
         Toast.makeText(ForgotPasswordActivity.this,"Password successfully set!!",Toast.LENGTH_LONG).show();
         finish();
     }
 
     @Override
     public void onForgotPasswordFailure(String message) {
+        pgProgress.setVisibility(View.GONE);
         Toast.makeText(ForgotPasswordActivity.this,"Your password could not be set at the moment. Please try again later!!",Toast.LENGTH_LONG).show();
         finish();
     }
@@ -131,6 +141,26 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onStudentFailure(String message) {
+
+    }
+
+    private View focusView = null;
+    private boolean validateDetails(){
+        if(edtUsername.getText()==null || TextUtils.isEmpty(edtUsername.getText().toString())){
+            focusView = edtUsername;
+        }else if(edtPassword.getText()==null || TextUtils.isEmpty(edtPassword.getText().toString())){
+            focusView = edtPassword;
+        }
+
+        if(focusView!=null){
+            focusView.requestFocus();
+            ((EditText)focusView).setError(getString(R.string.error_field_required));
+            focusView = null;
+            return false;
+        }else
+        {
+            return true;
+        }
 
     }
 }

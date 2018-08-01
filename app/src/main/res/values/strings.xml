@@ -1,18 +1,21 @@
 <resources>
     <string name="app_name">Lecturer</string>
     <string name="title_activity_registration">RegistrationActivity</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="title_activity_add_student">AddStudentActivity</string>
-    <string name="title_activity_take_attendance">TakeAttendanceActivity</string>
-    <string name="title_activity_view_attendance">ViewAttendanceActivity</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_add_student">Add Student</string>
+    <string name="title_activity_take_attendance">Take Attendance</string>
+    <string name="title_activity_view_attendance">View Attendance</string>
     <string name="add_student">Add Student</string>
     <string name="take_attendance">Take Attendance</string>
     <string name="view_attendance">View Attendance</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
+    <string name="prompt_password">Password</string>
+    <string name="user_id">User id</string>
     <string name="action_sign_in">Sign in</string>
+    <string name="update_password">Update Password</string>
+    <string name="register">Register</string>
     <string name="action_register">Not a user.Register?</string>
     <string name="forgot_password">Forgot password</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -35,5 +38,8 @@
     <string name="submit_attendance">Submit attendance</string>
     <string name="presentees">Presentees</string>
     <string name="absentees">Absentees</string>
+    <string name="student_matric_number">Matric Number</string>
+    <string name="student_name">Name</string>
+    <string name="gender">Gender</string>
     <string name="network_connection_issue">Please connect to the internet to proceed!</string>
 </resources>

@@ -1,12 +1,16 @@
 package com.lecturer.adapter;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lecturer.R;
@@ -19,9 +23,11 @@ import com.lecturer.model.StudentListResponse;
 public class TakeAttendanceAdapter extends RecyclerView.Adapter<TakeAttendanceAdapter.TakeAttendanceViewHolder> {
 
     private StudentListResponse  studentListResponses;
+    private static Activity mContext;
 
-    public TakeAttendanceAdapter(StudentListResponse studentListResponse){
+    public TakeAttendanceAdapter(Activity context,StudentListResponse studentListResponse){
         this.studentListResponses = studentListResponse;
+        mContext = context;
     }
 
     public static class TakeAttendanceViewHolder extends RecyclerView.ViewHolder{
@@ -35,6 +41,19 @@ public class TakeAttendanceAdapter extends RecyclerView.Adapter<TakeAttendanceAd
             this.txtStudentName = itemView.findViewById(R.id.txt_customer_name);
             this.chkPresent = itemView.findViewById(R.id.chk_present);
             this.chkAbsent = itemView.findViewById(R.id.chk_absent);
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            mContext.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            int height = displayMetrics.heightPixels;
+            int width = displayMetrics.widthPixels;
+
+            params.width = width/3;
+            params.gravity = Gravity.CENTER;
+            this.txtStudentName.setLayoutParams(params);
+            this.chkPresent.setLayoutParams(params);
+            this.chkAbsent.setLayoutParams(params);
+
         }
 
     }

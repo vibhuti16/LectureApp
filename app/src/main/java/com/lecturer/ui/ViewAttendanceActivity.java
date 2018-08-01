@@ -4,22 +4,22 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.lecturer.R;
 import com.lecturer.adapter.ViewAttendanceAdapter;
-import com.lecturer.model.Student;
 import com.lecturer.model.StudentListResponse;
 import com.lecturer.model.ViewAttendanceResponse;
 import com.lecturer.utils.Utils;
-
-import java.util.ArrayList;
 
 public class ViewAttendanceActivity extends AppCompatActivity implements LectureAppContract.View {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private LectureAppContract.Presenter lectureAppPresenter;
+    private ProgressBar pgProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,21 +29,18 @@ public class ViewAttendanceActivity extends AppCompatActivity implements Lecture
         layoutManager = new LinearLayoutManager(this);
         mRecyclerView = findViewById(R.id.rv_view_attendance);
         mRecyclerView.setLayoutManager(layoutManager);
+        pgProgress = findViewById(R.id.progress);
         lectureAppPresenter = new LectureAppPresenter(this);
 
-        if(getIntent().hasExtra("student_list")){
-            ArrayList<Student> studentArrayList = getIntent().getParcelableArrayListExtra("student_list");
-            ViewAttendanceAdapter viewAttendanceAdapter = new ViewAttendanceAdapter(studentArrayList);
-            mRecyclerView.setAdapter(viewAttendanceAdapter);
-        }else
-        {
+
             if(Utils.isNetworkConnected(this)){
-                lectureAppPresenter.getStudentList(this,false);
+                pgProgress.setVisibility(View.VISIBLE);
+                lectureAppPresenter.viewAttendance(this);
             }else
             {
                 Toast.makeText(this,getResources().getString(R.string.network_connection_issue),Toast.LENGTH_LONG).show();
             }
-        }
+
     }
 
     @Override
@@ -103,19 +100,19 @@ public class ViewAttendanceActivity extends AppCompatActivity implements Lecture
 
     @Override
     public void onViewAttendanceSuccess(ViewAttendanceResponse viewAttendanceResponse) {
-
+        pgProgress.setVisibility(View.GONE);
+        ViewAttendanceAdapter viewAttendanceAdapter = new ViewAttendanceAdapter(this,viewAttendanceResponse);
+        mRecyclerView.setAdapter(viewAttendanceAdapter);
     }
 
     @Override
     public void onViewAttendanceFailure(String message) {
-
+        pgProgress.setVisibility(View.GONE);
     }
 
     @Override
     public void onStudentSuccess(StudentListResponse studentListResponse, boolean isAfterAttendanceTaken) {
-        ArrayList<Student> studentArrayList = studentListResponse.getStudent();
-        ViewAttendanceAdapter viewAttendanceAdapter = new ViewAttendanceAdapter(studentArrayList);
-        mRecyclerView.setAdapter(viewAttendanceAdapter);
+
     }
 
     @Override

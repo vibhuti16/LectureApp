@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="educational_quotes">
+        <item>“You can never be overdressed or overeducated.”\n― Oscar Wilde</item>
+        <item>“Education is the most powerful weapon which you can use to change the world.”\n― Nelson Mandela</item>
+        <item>“Education is the ability to listen to almost anything without losing your temper or your self-confidence.”\n― Robert Frost</item>
+        <item>“The mind once enlightened cannot again become dark.”\n― Thomas Paine,</item>
+        <item>“Only a generation of readers will spawn a generation of writers.”\n― Steven Spielberg</item>
+        <item>“Intelligence plus character-that is the goal of true education.”\n― Martin Luther King Jr.</item>
+        <item>“Educating the mind without educating the heart is no education at all.”\n― Aristotle</item>
+        <item>“Marriage can wait, education cannot.”― Khaled Hosseini, A Thousand Splendid Suns</item>
+        <item>“The task of the modern educator is not to cut down jungles, but to irrigate deserts.”\n― C.S. Lewis</item>
+        <item>“The mind is not a vessel to be filled, but a fire to be kindled.”\n― Plutarch</item>
+        <item>“Study without desire spoils the memory, and it retains nothing that it takes in.”― Leonardo da Vinci</item>
+        <item>“Education without values, as useful as it is, seems rather to make man a more clever devil.”\n― C.S. Lewis</item>
+    </string-array>
+</resources>

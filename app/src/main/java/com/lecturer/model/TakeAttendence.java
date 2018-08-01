@@ -42,4 +42,14 @@ public class TakeAttendence {
     private String present;
     private String absent;
     private String id;
+
+    public String getLecture_id() {
+        return lecture_id;
+    }
+
+    public void setLecture_id(String lecture_id) {
+        this.lecture_id = lecture_id;
+    }
+
+    private String lecture_id;
 }

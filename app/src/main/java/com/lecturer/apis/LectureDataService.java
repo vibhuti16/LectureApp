@@ -1,6 +1,7 @@
 package com.lecturer.apis;
 
 import com.lecturer.model.StudentListResponse;
+import com.lecturer.model.TakeAttendanceResponse;
 import com.lecturer.model.TakeAttendence;
 import com.lecturer.model.ViewAttendanceResponse;
 
@@ -10,7 +11,6 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 /**
@@ -46,14 +46,17 @@ public interface LectureDataService {
     @FormUrlEncoded
     Call<String> insertStudent(@Field("studentMatricNo") String studentMatricNo,
                                 @Field("studentName") String studentName,
-                               @Field("studentGender") String studentGender);
+                               @Field("studentGender") String studentGender,
+                               @Field("id") String id);
 
-    @GET("/api/Student")
-    Call<StudentListResponse> getStudentList();
+    @POST("/api/Student")
+    @FormUrlEncoded
+    Call<StudentListResponse> getStudentList(@Field("id") String id);
 
-    @GET("/api/Total_attendance")
-    Call<ViewAttendanceResponse> viewAttendance();
+    @POST("/api/Total_attendance")
+    @FormUrlEncoded
+    Call<ViewAttendanceResponse> viewAttendance(@Field("id") String id);
 
     @POST("/api/Update_attendance")
-    Call<Void> insertAttendance(@Body ArrayList<TakeAttendence> takeAttendenceArrayList);
+    Call<TakeAttendanceResponse> insertAttendance(@Body ArrayList<TakeAttendence> takeAttendences);
 }

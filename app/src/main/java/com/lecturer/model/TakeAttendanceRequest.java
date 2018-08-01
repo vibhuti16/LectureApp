@@ -9,12 +9,12 @@ import java.util.ArrayList;
 public class TakeAttendanceRequest {
 
     public ArrayList<TakeAttendence> getTakeAttendanceRequestArrayList() {
-        return takeAttendanceRequestArrayList;
+        return TakeAttendence;
     }
 
     public void setTakeAttendanceRequestArrayList(ArrayList<TakeAttendence> takeAttendanceRequestArrayList) {
-        this.takeAttendanceRequestArrayList = takeAttendanceRequestArrayList;
+        this.TakeAttendence = takeAttendanceRequestArrayList;
     }
 
-    private ArrayList<TakeAttendence> takeAttendanceRequestArrayList;
+    private ArrayList<TakeAttendence> TakeAttendence;
 }

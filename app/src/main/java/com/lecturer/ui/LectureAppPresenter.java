@@ -11,7 +11,9 @@ import com.lecturer.model.LoginRequest;
 import com.lecturer.model.RegistrationRequest;
 import com.lecturer.model.StudentListResponse;
 import com.lecturer.model.TakeAttendanceRequest;
+import com.lecturer.model.TakeAttendanceResponse;
 import com.lecturer.model.ViewAttendanceResponse;
+import com.lecturer.utils.PrefManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,12 +48,12 @@ public class LectureAppPresenter implements LectureAppContract.Presenter {
         lectureDataService.login(loginRequest.getUserName(),loginRequest.getPassword()).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                mView.onLoginSuccess(response.body().toString());
+                mView.onLoginSuccess("");
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                mView.onLoginSuccess("Success");
+                mView.onLoginFailure("");
 
             }
         });
@@ -65,10 +67,9 @@ public class LectureAppPresenter implements LectureAppContract.Presenter {
                 enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
-                        int code = response.code();
-                        if(code == 200){
+
                             mView.onRegistrationSuccess("");
-                        }
+
 
                     }
 
@@ -85,12 +86,12 @@ public class LectureAppPresenter implements LectureAppContract.Presenter {
         lectureDataService.forgotPassword(loginRequest.getUserName(),loginRequest.getPassword()).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                mView.onForgotPasswordSuccess(response.body().toString());
+                mView.onForgotPasswordSuccess("");
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                mView.onForgotPasswordSuccess("");
+                mView.onForgotPasswordFailure("");
             }
         });
     }
@@ -98,10 +99,10 @@ public class LectureAppPresenter implements LectureAppContract.Presenter {
     @Override
     public void addStudent(Activity context, InsertStudentRequest insertStudentRequest) {
         LectureDataService lectureDataService = ServiceFactory.createRetrofitService(LectureDataService.class,LectureDataService.SERVICE_ENDPOINT);
-        lectureDataService.insertStudent(insertStudentRequest.getStudentMatricNo(),insertStudentRequest.getStudentName(),insertStudentRequest.getStudentGender()).enqueue(new Callback<String>() {
+        lectureDataService.insertStudent(insertStudentRequest.getStudentMatricNo(),insertStudentRequest.getStudentName(),insertStudentRequest.getStudentGender(),insertStudentRequest.getId()).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                mView.onAddStudentSuccess(response.body().toString());
+                mView.onAddStudentSuccess("");
             }
 
             @Override
@@ -118,7 +119,7 @@ public class LectureAppPresenter implements LectureAppContract.Presenter {
     public void viewAttendance(Activity context) {
 
         LectureDataService lectureDataService = ServiceFactory.createRetrofitService(LectureDataService.class,LectureDataService.SERVICE_ENDPOINT);
-        lectureDataService.viewAttendance().enqueue(new Callback<ViewAttendanceResponse>() {
+        lectureDataService.viewAttendance((new PrefManager(context).getString(PrefManager.LOGIN_ID))).enqueue(new Callback<ViewAttendanceResponse>() {
             @Override
             public void onResponse(Call<ViewAttendanceResponse> call, Response<ViewAttendanceResponse> response) {
                 mView.onViewAttendanceSuccess(response.body());
@@ -126,7 +127,7 @@ public class LectureAppPresenter implements LectureAppContract.Presenter {
 
             @Override
             public void onFailure(Call<ViewAttendanceResponse> call, Throwable t) {
-
+                mView.onTakeAttendanceFailure("");
             }
         });
     }
@@ -135,7 +136,7 @@ public class LectureAppPresenter implements LectureAppContract.Presenter {
     @Override
     public void getStudentList(Activity context, final boolean isAfterAttendanceTaken) {
         LectureDataService lectureDataService = ServiceFactory.createRetrofitService(LectureDataService.class,LectureDataService.SERVICE_ENDPOINT);
-        lectureDataService.getStudentList().enqueue(new Callback<StudentListResponse>() {
+        lectureDataService.getStudentList((new PrefManager(context).getString(PrefManager.LOGIN_ID))).enqueue(new Callback<StudentListResponse>() {
             @Override
             public void onResponse(Call<StudentListResponse> call, Response<StudentListResponse> response) {
                 mView.onStudentSuccess(response.body(),isAfterAttendanceTaken);
@@ -152,14 +153,22 @@ public class LectureAppPresenter implements LectureAppContract.Presenter {
     @Override
     public void takeAttendance(Activity context, TakeAttendanceRequest takeAttendanceRequest) {
         LectureDataService lectureDataService = ServiceFactory.createRetrofitService(LectureDataService.class,LectureDataService.SERVICE_ENDPOINT);
-        lectureDataService.insertAttendance(takeAttendanceRequest.getTakeAttendanceRequestArrayList()).enqueue(new Callback<Void>() {
+//        String json = new Gson().toJson(takeAttendanceRequest.getTakeAttendanceRequestArrayList());
+//        Log.d("kjbjk",json);
+        lectureDataService.insertAttendance(takeAttendanceRequest.getTakeAttendanceRequestArrayList()).enqueue(new Callback<TakeAttendanceResponse>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                mView.onTakeAttendanceSuccess("");
+            public void onResponse(Call<TakeAttendanceResponse> call, Response<TakeAttendanceResponse> response) {
+                if(response.body().getMessage().equalsIgnoreCase("successful")){
+                    mView.onTakeAttendanceSuccess("");
+                }else
+                {
+                    mView.onTakeAttendanceFailure("");
+                }
+
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<TakeAttendanceResponse> call, Throwable t) {
                 mView.onTakeAttendanceFailure("");
 
             }

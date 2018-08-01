@@ -15,6 +15,7 @@ public class PrefManager {
         private static final String PREF_NAME = "lecturer";
 
         private static final String IS_LOGGED_IN = "isLoggedIn";
+        public static final String LOGIN_ID = "loginId";
 
         public PrefManager(Context context) {
                 this.mContext = context;
@@ -28,6 +29,23 @@ public class PrefManager {
         }
 
         public boolean isLoggedIn() {
-                return pref.getBoolean(IS_LOGGED_IN, true);
+                return pref.getBoolean(IS_LOGGED_IN, false);
+        }
+
+        public void setInt(String prefName,int prefvalue){
+                editor.putInt(prefName, prefvalue);
+                editor.commit();
+        }
+
+        public int getInt(String prefName){
+                return pref.getInt(prefName,0);
+        }
+        public void setString(String prefName,String prefvalue){
+                editor.putString(prefName, prefvalue);
+                editor.commit();
+        }
+
+        public String getString(String prefName){
+                return pref.getString(prefName,null);
         }
 }

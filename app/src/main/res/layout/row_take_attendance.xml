@@ -2,22 +2,26 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:layout_gravity="center_horizontal"
+    >
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_weight="1"
-    android:id="@+id/txt_customer_name"/>
+    android:id="@+id/txt_customer_name"
+    />
     <CheckBox
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:id="@+id/chk_present"
-        android:gravity="center_horizontal"/>
+
+        />
     <CheckBox
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:id="@+id/chk_absent"
-        android:gravity="center_horizontal"/>
+         />
 </LinearLayout>

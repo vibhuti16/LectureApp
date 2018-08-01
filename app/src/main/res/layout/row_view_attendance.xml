@@ -7,17 +7,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_weight="1"
-    android:id="@+id/txt_student_name"/>
+    android:id="@+id/txt_student_name"
+    android:padding="@dimen/fab_margin"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:id="@+id/txt_present"
-        android:gravity="center_horizontal"/>
+        android:gravity="center_horizontal"
+        android:padding="@dimen/fab_margin"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:id="@+id/txt_absent"
-        android:gravity="center_horizontal"/>
+        android:gravity="center_horizontal"
+        android:padding="@dimen/fab_margin"/>
 </LinearLayout>
